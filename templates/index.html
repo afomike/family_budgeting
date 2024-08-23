@@ -3,114 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obesity Risk Prediction Form</title>
+    <title>Family Budget Recommender</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Obesity Risk Prediction Form</h1>
-        <form id="obesity-form" method="POST" action="/predict">
-            <!-- Age -->
-            <div class="form-group">
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="Age" min="0" max="120" required>
-            </div>
-            
-            <!-- Gender -->
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="Gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-
-            <!-- CALC (Alcohol Consumption) -->
-            <div class="form-group">
-                <label for="calc">Alcohol Consumption:</label>
-                <select id="calc" name="CALC" required>
-                    <option value="no">No</option>
-                    <option value="sometimes">Sometimes</option>
-                    <option value="frequent">Frequent</option>
-                    <option value="always">Always</option>
-                </select>
-            </div>
-            
-            <!-- FAVC (Frequent High-Calorie Food Consumption) -->
-            <div class="form-group">
-                <label for="favc">Frequent High-Calorie Food Consumption:</label>
-                <select id="favc" name="FAVC" required>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-            
-            <!-- FCVC (Vegetable Consumption) -->
-            <div class="form-group">
-                <label for="fcvc">Vegetable Consumption Frequency:</label>
-                <input type="number" id="fcvc" name="FCVC" min="0" max="7" required>
-            </div>
-
-            <!-- NCP (Number of Main Meals) -->
-            <div class="form-group">
-                <label for="ncp">Number of Main Meals per Day:</label>
-                <input type="number" id="ncp" name="NCP" min="1" max="5" required>
-            </div>
-
-            <!-- SMOKE -->
-            <div class="form-group">
-                <label for="smoke">Do You Smoke?</label>
-                <select id="smoke" name="SMOKE" required>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-            
-            <!-- CH2O (Daily Water Intake) -->
-            <div class="form-group">
-                <label for="ch2o">Daily Water Intake (Liters):</label>
-                <input type="number" id="ch2o" name="CH2O" step="0.1" min="0" max="5" required>
-            </div>
-
-            <!-- Family History with Overweight -->
-            <div class="form-group">
-                <label for="family-history">Family History of Overweight:</label>
-                <select id="family-history" name="family_history_with_overweight" required>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-
-            <!-- FAF (Physical Activity Frequency) -->
-            <div class="form-group">
-                <label for="faf">Physical Activity Frequency per Week:</label>
-                <input type="number" id="faf" name="FAF" min="0" max="7" required>
-            </div>
-
-            <!-- CAEC (Consumption of Food Between Meals) -->
-            <div class="form-group">
-                <label for="caec">Consumption of Food Between Meals:</label>
-                <select id="caec" name="CAEC" required>
-                    <option value="no">No</option>
-                    <option value="sometimes">Sometimes</option>
-                    <option value="frequent">Frequent</option>
-                    <option value="always">Always</option>
-                </select>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="form-group">
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-
-        <!-- Section to Display the Result -->
-        <div id="result">
-            {% if prediction %}
-                <h2>Prediction Result:</h2>
-                <p>{{ prediction }}</p>
-            {% endif %}
-        </div>
-    </div>
+    <h1>Family Budget Recommender</h1>
+    <form method="POST">
+        <label for="age_range">Age Range:</label>
+        <select name="age_range" id="age_range">
+            <option value="Under 25">Under 25</option>
+            <option value="25 - 34">25 - 34</option>
+            <option value="35 - 44">35 - 44</option>
+            <option value="45 - 54">45 - 54</option>
+            <option value="55 - 64">55 - 64</option>
+            <option value="65+">65+</option>
+        </select><br><br>
+        
+        <label for="household">Household Size:</label>
+        <input type="number" name="household" id="household" required><br><br>
+        
+        <label for="employment_status">Employment Status:</label>
+        <select name="employment_status" id="employment_status">
+            <option value="Employed full time">Employed full time</option>
+            <option value="Employed part time">Employed part time</option>
+            <option value="Self Employed">Self Employed</option>
+            <option value="Unemployed">Unemployed</option>
+            <option value="Student">Student</option>
+        </select><br><br>
+        
+        <label for="total_income">Total Monthly Income:</label>
+        <input type="number" name="total_income" id="total_income" required><br><br>
+        
+        <input type="submit" value="Get Recommendation">
+    </form>
+    
+    {% if budget_breakdown %}
+    <h2>Detailed Budget Breakdown:</h2>
+    <ul>
+        <li>Food: {{ budget_breakdown['Food'] }}</li>
+        <li>Housing: {{ budget_breakdown['Housing'] }}</li>
+        <li>Transportation: {{ budget_breakdown['Transportation'] }}</li>
+        <li>Utilities: {{ budget_breakdown['Utilities'] }}</li>
+        <li>Insurance: {{ budget_breakdown['Insurance'] }}</li>
+        <li>Savings: {{ budget_breakdown['Savings'] }}</li>
+        <li>Other Expenses: {{ budget_breakdown['Other Expenses'] }}</li>
+    </ul>
+    {% endif %}
 </body>
 </html>

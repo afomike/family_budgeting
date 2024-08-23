@@ -1,58 +1,100 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
-}
-
-.container {
-    background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    color: #4CAF50;
+    font-size: 2.5em;
+    margin-bottom: 30px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.form-group label {
+label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom: 10px;
     color: #555;
 }
 
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.form-group button {
+input[type="number"], select {
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.2em;
     cursor: pointer;
 }
 
-.form-group button:hover {
-    background-color: #0056b3;
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 40px;
+    color: #333;
+}
+
+ul {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+}
+
+ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.1em;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    form, ul {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    input[type="submit"] {
+        font-size: 1.1em;
+    }
 }
