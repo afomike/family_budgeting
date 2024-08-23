@@ -5,9 +5,9 @@ import numpy as np
 app = Flask(__name__)
 
 # Load the pre-trained model and encoders
-model = joblib.load('budget_recommender_model.pkl')
-age_encoder = joblib.load('age_encoder.pkl')
-employment_encoder = joblib.load('employment_encoder.pkl')
+model = joblib.load('model/best_budget_recommender_model.pkl')
+age_encoder = joblib.load('model/age_encoder.pkl')
+employment_encoder = joblib.load('model/employment_encoder.pkl')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
