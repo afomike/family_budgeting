@@ -19,17 +19,17 @@ def preprocess_input(data):
     }, inplace=True)
 
     # Label Encoding for categorical features
-    label_encode_features = ['Age Range', 'Employment Status']  # Must match the training names
+    label_encode_features = ['Age Range', 'Employment Status']  
     for column in label_encode_features:
         if column in df.columns:
-            le = label_encoders[column]  # Access the LabelEncoder for the specific column
+            le = label_encoders[column]  
             known_classes = set(le.classes_)
             df[column] = df[column].apply(lambda x: le.transform([x])[0] if x in known_classes else -1)
 
     df['Household'] = pd.to_numeric(df['Household'], errors='coerce').fillna(0)
     df['Total Monthly Income'] = pd.to_numeric(df['Total Monthly Income'], errors='coerce').fillna(0)
     
-    # Return the DataFrame as a 2D numpy array
+    
     return df.values
 
 @app.route('/', methods=['GET', 'POST'])
