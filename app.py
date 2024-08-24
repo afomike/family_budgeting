@@ -8,6 +8,22 @@ app = Flask(__name__)
 model = joblib.load('model/best_budget_recommender_model.pkl')
 age_encoder = joblib.load('model/age_encoder.pkl')
 employment_encoder = joblib.load('model/employment_encoder.pkl')
+def preprocess_input(data):
+    df = pd.DataFrame(data, index=[0])
+    # Label Encoding for categorical features
+    label_encode_features = ['age_range','employment_status' ]
+    for column in label_encode_features:
+        if column in df.columns:
+            le = label_encoders[column]
+            known_classes = set(le.classes_)
+            df[column] = df[column].apply(lambda x: le.transform([x])[0] if x in known_classes else -1)
+    
+    
+    df['household'] = df['household'] = pd.to_numeric(df['household'], errors='coerce').fillna(0)
+    df['total_income'] = pd.to_numeric(df['total_income'], errors='coerce').fillna(0)
+    
+    return df 
+        
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -15,13 +31,10 @@ def index():
     budget_breakdown = None
     
     if request.method == 'POST':
-        age_range = age_encoder.transform([request.form['age_range']])[0]
-        household = int(request.form['household'])
-        employment_status = employment_encoder.transform([request.form['employment_status']])[0]
-        total_income = int(request.form['total_income'])
+        data = request.form.to_dict()
         
         # Create input vector for prediction
-        user_input = [age_range, household, employment_status, total_income]
+        user_input = preprocess_input(data)
         
         # Predict budget allocations
         predicted_allocations = model.predict([user_input])[0]
